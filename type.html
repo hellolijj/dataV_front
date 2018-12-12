@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>专利类型图</title>
+    <link rel="stylesheet" href="/layui-src/dist/css/layui.css">
+</head>
+
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">dataV 数据可视化作业</div>
+            <!-- 头部区域（可配合layui已有的水平导航） -->
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item"><a href="">可视化主页</a></li>
+
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="https://avatars0.githubusercontent.com/u/22214474?s=460&v=4" class="layui-nav-img">
+                        沉醉不知归路
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">github</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item"><a href="index.html">专利申请趋势图</a></li>
+                    <li class="layui-nav-item"><a href="public.html">专利公开趋势</a></li>
+                    <li class="layui-nav-item layui-nav-itemed"><a href="">专利类型</a></li>
+                    <li class="layui-nav-item"><a href="technology.html">技术分布</a></li>
+                    <li class="layui-nav-item"><a href="researcher.html">研发人员数量趋势</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <form class="layui-form" action="" style="margin:15px;">
+                <div class="layui-form-item">
+                  <label class="layui-form-label">公司名称</label>
+                  <div class="layui-input-block">
+                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入公司名称" class="layui-input" style="display: inline; width: 85%">
+                    <button class="layui-btn">搜索</button>
+                  </div>
+                </div>
+            </form>
+            <div id="map" style="padding: 15px; height:560px;">
+
+            </div>
+        </div>
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            © 2018-2019 github/hellolijj 李俊君 李文龙 章回
+        </div>
+    </div>
+    <script src="/layui-src/dist/layui.js"></script>
+    <script>
+        //JavaScript代码区域
+        layui.use('element', function () {
+            var element = layui.element;
+
+        });
+    </script>
+    <script src="public/echarts.common.min.js"></script>
+    <script>
+        var myChart = echarts.init(document.getElementById('map'));
+        // 指定图表的配置项和数据
+        option = {
+    title : {
+        text: '浙江大学发明专利类型统计',
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient: 'vertical',
+        left: 'left',
+        data: ['发明专利','实用新型','外观设计']
+    },
+    series : [
+        {
+            name: '访问来源',
+            type: 'pie',
+            radius : '55%',
+            center: ['50%', '60%'],
+            data:[
+                {value:335, name:'发明专利'},
+                {value:310, name:'实用新型'},
+                {value:234, name:'外观设计'},
+            ],
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }
+    ]
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+    </script>
+</body>

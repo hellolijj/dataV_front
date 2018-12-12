@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>专利技术分布图</title>
+    <link rel="stylesheet" href="/layui-src/dist/css/layui.css">
+</head>
+
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">dataV 数据可视化作业</div>
+            <!-- 头部区域（可配合layui已有的水平导航） -->
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item"><a href="">可视化主页</a></li>
+
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="https://avatars0.githubusercontent.com/u/22214474?s=460&v=4" class="layui-nav-img">
+                        沉醉不知归路
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">github</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item"><a href="index.html">专利申请趋势图</a></li>
+                    <li class="layui-nav-item"><a href="public.html">专利公开趋势</a></li>
+                    <li class="layui-nav-item"><a href="type.html">专利类型</a></li>
+                    <li class="layui-nav-item layui-nav-itemed"><a href="">技术分布</a></li>
+                    <li class="layui-nav-item"><a href="researcher.html">研发人员数量趋势</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <form class="layui-form" action="" style="margin:15px;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">公司名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入公司名称"
+                            class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">年份选择</label>
+                        <div class="layui-input-inline">
+                            <select name="quiz">
+                                <option value="">所有年份</option>
+                                <option value="1990">1990</option>
+                                <option value="1991">1991</option>
+                                <option value="1992">1992</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">组别统计</label>
+                        <div class="layui-input-inline">
+                            <select name="modules" lay-verify="required" lay-search="">
+                                <option value=""></option>
+                                <option value="1">大组统计</option>
+                                <option value="2">小组统计</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                    </div>
+                </div>
+            </form>
+
+
+            <div id="map" style="padding: 15px; height:560px;">
+            </div>
+        </div>
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            © 2018-2019 github/hellolijj 李俊君 李文龙 章回
+        </div>
+    </div>
+    <script src="/layui-src/dist/layui.js"></script>
+    <script>
+        //JavaScript代码区域
+        layui.use('element', function () {
+            var element = layui.element;
+        });
+        layui.use('form', function () {
+            var form = layui.form;
+            //监听提交
+            form.on('submit(formDemo)', function (data) {
+                layer.msg(JSON.stringify(data.field));
+                return false;
+            });
+        });
+    </script>
+    <script src="public/echarts.common.min.js"></script>
+    <script>
+        var myChart = echarts.init(document.getElementById('map'));
+        // 指定图表的配置项和数据
+
+
+        option = {
+            title: [{
+                text: '技术分布图',
+            }],
+
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            legend: {
+                data: ['发明专利', '实用新型']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'value'
+            },
+            yAxis: {
+                type: 'category',
+                data: ['F16D55/224', 'F16D65/18', 'B23Q1/28', 'F16D65/18', 'F16D121/04', 'B23Q1/28', 'F16D55/224']
+            },
+            series: [
+                {
+                    name: '发明专利',
+                    type: 'bar',
+                    stack: '总量',
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'insideRight'
+                        }
+                    },
+                    data: [320, 302, 301, 334, 390, 330, 320]
+                },
+                {
+                    name: '实用新型',
+                    type: 'bar',
+                    stack: '总量',
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'insideRight'
+                        }
+                    },
+                    data: [120, 132, 101, 134, 90, 230, 210]
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+    </script>
+</body>

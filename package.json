@@ -1,18 +1,16 @@
 {
   "name": "datav-front",
   "version": "1.0.0",
-  "description": "数据可视化作业前端代码",
+  "description": "datav",
   "main": "index.js",
   "dependencies": {
-    "layui-src": "^2.4.5"
-  },
-  "devDependencies": {
     "http-server": "^0.11.1"
   },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "http-server . -p 8888"
+    "start": "http-server . -p 8888"  
   },
-  "author": "李俊君 <junjunli666@goole.com>",
+  "author": "",
   "license": "ISC"
 }

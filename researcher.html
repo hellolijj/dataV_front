@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>研发人员数量趋势</title>
+    <link rel="stylesheet" href="/layui-src/dist/css/layui.css">
+    <script src="/layui-src/dist/layui.js"></script>
+</head>
+
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">dataV 数据可视化作业</div>
+            <!-- 头部区域（可配合layui已有的水平导航） -->
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item"><a href="">可视化主页</a></li>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="https://avatars0.githubusercontent.com/u/22214474?s=460&v=4" class="layui-nav-img">
+                        沉醉不知归路
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">github</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item"><a class="index.html" href="">专利申请趋势图</a></li>
+                    <li class="layui-nav-item"><a href="public.html">专利公开趋势</a></li>
+                    <li class="layui-nav-item"><a href="type.html">专利类型</a></li>
+                    <li class="layui-nav-item"><a href="technology.html">技术分布</a></li>
+                    <li class="layui-nav-item  layui-nav-itemed"><a href="">研发人员数量趋势</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <form class="layui-form" action="" style="margin:15px;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">公司名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入公司名称"
+                            class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">日期范围</label>
+                            <div class="layui-input-inline">
+                              <input type="text" class="layui-input" id="start" placeholder="yyyy-MM-dd">
+                            </div>
+                            <div class="layui-form-mid">--</div>
+                            <div class="layui-input-inline">
+                                <input type="text" class="layui-input" id="end" placeholder="yyyy-MM-dd">
+                              </div>
+                          </div>
+                        <div class="layui-inline">
+                            <button class="layui-btn" lay-submit="" lay-filter="demo1">确定</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+            <div id="map" style="padding: 15px; height:560px;">
+
+            </div>
+        </div>
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            © 2018-2019 github/hellolijj 李俊君 李文龙 章回
+        </div>
+    </div>
+
+    <script>
+        //JavaScript代码区域
+        layui.use('element', 'form', function () {
+            var element = layui.element;
+            var form = layui.form;
+        });
+        layui.use('form', function () {
+            var form = layui.form;
+            //监听提交
+            form.on('submit(formDemo)', function (data) {
+                layer.msg(JSON.stringify(data.field));
+                return false;
+            });
+        });
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            //日期范围
+            laydate.render({
+                elem: '#start'
+            });
+            laydate.render({
+                elem: '#end'
+            });
+        });
+    </script>
+    <script src="public/echarts.common.min.js"></script>
+    <script>
+        var myChart = echarts.init(document.getElementById('map'));
+        // 指定图表的配置项和数据
+        data = [["2000-06-05", 116], ["2000-06-06", 129], ["2000-06-07", 135], ["2000-06-08", 86], ["2000-06-09", 73], ["2000-06-10", 85], ["2000-06-11", 73], ["2000-06-12", 68], ["2000-06-13", 92], ["2000-06-14", 130], ["2000-06-15", 245], ["2000-06-16", 139], ["2000-06-17", 115], ["2000-06-18", 111], ["2000-06-19", 309], ["2000-06-20", 206], ["2000-06-21", 137], ["2000-06-22", 128], ["2000-06-23", 85], ["2000-06-24", 94], ["2000-06-25", 71], ["2000-06-26", 106], ["2000-06-27", 84], ["2000-06-28", 93], ["2000-06-29", 85], ["2000-06-30", 73], ["2000-07-01", 83], ["2000-07-02", 125], ["2000-07-03", 107], ["2000-07-04", 82], ["2000-07-05", 44], ["2000-07-06", 72], ["2000-07-07", 106], ["2000-07-08", 107], ["2000-07-09", 66], ["2000-07-10", 91], ["2000-07-11", 92], ["2000-07-12", 113], ["2000-07-13", 107], ["2000-07-14", 131], ["2000-07-15", 111], ["2000-07-16", 64], ["2000-07-17", 69], ["2000-07-18", 88], ["2000-07-19", 77], ["2000-07-20", 83], ["2000-07-21", 111], ["2000-07-22", 57], ["2000-07-23", 55], ["2000-07-24", 60]];
+        var dateList = data.map(function (item) {
+            return item[0];
+        });
+        var valueList = data.map(function (item) {
+            return item[1];
+        });
+
+        option = {
+
+            // Make gradient line here
+            visualMap: [{
+                show: false,
+                type: 'continuous',
+                seriesIndex: 0,
+                min: 0,
+            }],
+
+
+            title: [{
+                text: '研发人员数量趋势图',
+                x: 'center'
+            }],
+            tooltip: {
+                trigger: 'axis'
+            },
+            xAxis: [{
+                data: dateList
+            }],
+            yAxis: [{
+                name: '单位(人)',
+                splitLine: { show: false }
+            }],
+            toolbox: {
+                left: 'right',
+                feature: {
+                    dataZoom: {
+                        yAxisIndex: 'none'
+                    },
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            dataZoom: [{
+                startValue: '2000-06-15'
+            }, {
+                type: 'inside'
+            }],
+
+            series: [{
+                type: 'line',
+                showSymbol: true,
+                data: valueList
+            }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+    </script>
+</body>
