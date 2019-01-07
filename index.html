@@ -65,7 +65,7 @@
           </div>
           <div class="layui-tab-item">
             <div class="layui-tab-item layui-show">
-              <div id="map-2" style="height:580px; width: 70%;"></div>
+              <div id="map1" style="height:580px; width: 70%;"></div>
             </div>
           </div>
         </div>
@@ -184,4 +184,13 @@
   };
   // 使用刚指定的配置项和数据显示图表。
   myChart.setOption(option)
+</script>
+<script src="./data/gdp_city.js"></script>
+<script>
+  var myChart1 = echarts.init(document.getElementById('map1'));
+  // 指定图表的配置项和数据
+
+  data = get_gdb_city();
+  console.log(data)
+
 </script>
