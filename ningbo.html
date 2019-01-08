@@ -52,9 +52,9 @@
 
     <div class="layui-body" style="padding: 20px; ">
       <!-- 内容主体区域 -->
-      <blockquote class="layui-elem-quote">浙江GDP与增长率走势分析</blockquote>
+      <blockquote class="layui-elem-quote">宁波GDP与增长率走势分析</blockquote>
       <div id="map" style="height:580px;"></div>
-      <blockquote class="layui-elem-quote">浙江2017年各城市GDP分布图</blockquote>
+      <blockquote class="layui-elem-quote">宁波2017年各城市GDP分布图</blockquote>
       <div id="map1" style="height:580px;"></div>
 
     </div>
@@ -80,9 +80,10 @@
   var myChart = echarts.init(document.getElementById('map'));
   // 指定图表的配置项和数据
   data = get_gdps();
+  console.log(data)
   option = {
     title: {
-      text: '浙江GDP与增长率走势分析',
+      text: '宁波GDP与增长率走势分析',
       subtext: '数据来源：国家数据统计局',
       x: 'center'
     },
@@ -146,28 +147,28 @@
       {
         name: 'gdp',
         type: 'bar',
-        data: data['Zhejiang'].gdp
+        data: data['Ningbo'].gdp
       },
       {
         name: 'gdp1',
         type: 'bar',
-        data: data['Zhejiang'].gdp1
+        data: data['Ningbo'].gdp1
       },
       {
         name: 'gdp2',
         type: 'bar',
-        data: data['Zhejiang'].gdp2
+        data: data['Ningbo'].gdp2
       },
       {
         name: 'gdp3',
         type: 'bar',
-        data: data['Zhejiang'].gdp3
+        data: data['Ningbo'].gdp3
       },
       {
         name: '增长率',
         type: 'line',
         yAxisIndex: 1,
-        data: data['Zhejiang'].rate
+        data: data['Ningbo'].rate
       }
     ]
   };
@@ -183,7 +184,7 @@
   console.log(data)
   option = {
     title: {
-      text: '浙江2017年各城市GDP分布图',
+      text: '宁波2017年各城市GDP分布图',
       subtext: '数据来源：国家数据统计局',
       x: 'center'
     },
@@ -194,13 +195,13 @@
     legend: {
       orient: 'vertical',
       left: 'left',
-      data: data[1].district
+      data: data[0].district
     },
     series: [
       {
         name: '访问来源',
         type: 'pie',
-        data: data[1].gdp,
+        data: data[0].gdp,
         itemStyle: {
           emphasis: {
             shadowBlur: 10,

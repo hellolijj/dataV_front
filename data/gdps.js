@@ -38,7 +38,7 @@ function get_gdps() {
         }
     }
 
-    return cityData;
+    return gdps;
 }
 
 
