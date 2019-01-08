@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>dataV 个人可视化作业</title>
+    <link rel="stylesheet" href="layui-src/dist/css/layui.css">
+</head>
+
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">dataV 个人可视化作业</div>
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item"><a href="">可视化主页</a></li>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="https://avatars0.githubusercontent.com/u/22214474?s=460&v=4" class="layui-nav-img">
+                        沉醉不知归路
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">github</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">宏观GDP走势</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="index.html">浙江省</a></dd>
+                            <dd><a href="ningbo.html">宁波市</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item  layui-nav-itemed">
+                        <a href="javascript:;">地方财政数据分析</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="caizhen_zhejiang.html">浙江省收支</a></dd>
+                            <dd><a href="caizhen_ningbo.html">宁波市收支</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body" style="padding: 20px; ">
+            <!-- 内容主体区域 -->
+            <blockquote class="layui-elem-quote">2018年1-11月宁波市各区财政收支</blockquote>
+            <div id="map" style="height:580px;"></div>
+
+        </div>
+
+        <div class="layui-footer">
+            © 2018-2019 github/hellolijj 李俊君 数据可视化个人作业
+        </div>
+    </div>
+    <script src="layui-src/dist/layui.js"></script>
+    <script>
+        //JavaScript代码区域
+        layui.use('element', function () {
+            var element = layui.element;
+
+        });
+    </script>
+</body>
+
+</html>
+<script src="./public/echarts.common.min.js"></script>
+<script src="./data/caizhen.js"></script>
+<script>
+    //     https://echarts.baidu.com/examples/editor.html?c=bar-negative
+    // https://echarts.baidu.com/examples/editor.html?c=pie-doughnut
+    var myChart = echarts.init(document.getElementById('map'));
+    // 指定图表的配置项和数据
+    data = get_caizhen();
+    console.log(data)
+    option = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        legend: {
+            data: ['财政收支', '一般公共预算支出', '一般公共预算收入']
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        yAxis: [
+            {
+                type: 'category',
+                axisTick: { show: false },
+                data: data[1].district
+            }
+        ],
+        series: [
+            {
+                name: '财政收支',
+                type: 'bar',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'inside'
+                    }
+                },
+                data: data[1].res
+            },
+            {
+                name: '一般公共预算收入',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: true
+                    }
+                },
+                data: data[1].income
+            },
+            {
+                name: '一般公共预算支出',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'left'
+                    }
+                },
+                data: data[1].outcome
+            }
+        ]
+    };
+    myChart.setOption(option)
+</script>
