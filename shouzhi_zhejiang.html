@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>dataV 个人可视化作业</title>
+    <link rel="stylesheet" href="layui-src/dist/css/layui.css">
+</head>
+
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">dataV 个人可视化作业</div>
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item"><a href="">可视化主页</a></li>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="https://avatars0.githubusercontent.com/u/22214474?s=460&v=4" class="layui-nav-img">
+                        沉醉不知归路
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">github</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;">宏观GDP走势</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="index.html">浙江省</a></dd>
+                            <dd><a href="ningbo.html">宁波市</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item  layui-nav-itemed">
+                        <a href="javascript:;">地方财政数据分析</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="caizhen_zhejiang.html">浙江省收支</a></dd>
+                            <dd><a href="caizhen_ningbo.html">宁波市收支</a></dd>
+                            <dd><a href="shouzhi_zhejiang.html">浙江省收支详情</a></dd>
+                            <dd><a href="shoushui_ningbo.html">宁波收支详情</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body" style="padding: 20px; ">
+            <!-- 内容主体区域 -->
+            <blockquote class="layui-elem-quote">2018年1-11月浙江省各市财政收支详情</blockquote>
+            <div id="map" style="height:580px; width: 50%; float: left;"></div>
+            <div id="map1" style="height:580px; width: 50%; float: left;"></div>
+        </div>
+
+        <div class="layui-footer">
+            © 2018-2019 github/hellolijj 李俊君 数据可视化个人作业
+        </div>
+    </div>
+    <script src="layui-src/dist/layui.js"></script>
+    <script>
+        //JavaScript代码区域
+        layui.use('element', function () {
+            var element = layui.element;
+
+        });
+    </script>
+</body>
+
+</html>
+<script src="./public/echarts.common.min.js"></script>
+<script src="./data/shouzhi.js"></script>
+<script>
+    var myChart = echarts.init(document.getElementById('map'));
+    data = get_shouzhi();
+    console.log(data);
+
+    // 指定图表的配置项和数据
+    option = {
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+            data: data.ZhejiangIncomeItem
+        },
+        series: [
+            {
+                name: '浙江省财政收入详情',
+                type: 'pie',
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '30',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data: ZhejiangIncome
+            }
+        ]
+    };
+    myChart.setOption(option)
+    var myChart1 = echarts.init(document.getElementById('map1'));
+    option = {
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'right',
+            data: data.ZhejiangOutcomeItem
+        },
+        series: [
+            {
+                name: '浙江省财政支出详情',
+                type: 'pie',
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '30',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data: data.ZhejiangOutcome
+            }
+        ]
+    };
+    myChart1.setOption(option)
+</script>
