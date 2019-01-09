@@ -8,7 +8,6 @@ RUN cnpm install -g http-server
 
 RUN mkdir -p /usr/src/node
 WORKDIR /usr/src/node
-COPY . /usr/src/node
 
 RUN cnpm install
 

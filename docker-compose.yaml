@@ -1,0 +1,8 @@
+front:
+  build: .
+  container_name: front
+  restart: always
+  volumes:
+    - .:/usr/src/node:rw
+  ports:
+    - "52003:80"
