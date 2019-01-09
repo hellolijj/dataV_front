@@ -135,6 +135,5 @@ function get_shouzhi() {
         "NingboIncomeItem" : NingboIncomeItem,
         "NingboOutcome": NingboOutcome,
         "NingboItem": NingboOutcomeItem,
-    }
-        
+    }       
 }
