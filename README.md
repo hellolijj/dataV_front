@@ -2,7 +2,7 @@
 
 ## 项目演示
 
-http://demo.lijj.top:52004
+`http://demo.lijj.top:52004`
 
 ## 项目部署
 ```
