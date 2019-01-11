@@ -2,7 +2,14 @@
 
 ## 项目演示
 
-http://35.220.210.218:8888
+http:demo.lijj.top:52004
+
+## 项目部署
+```
+git clone https://github.com/hellolijj/dataV_front.git dataV_group
+cd dataV_group
+docker-compose up -d
+```
 
 ## 前端架构
 

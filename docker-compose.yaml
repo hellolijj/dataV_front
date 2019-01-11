@@ -1,0 +1,8 @@
+front_group:
+  build: .
+  container_name: front_group
+  restart: always
+  volumes:
+    - .:/usr/src/node:rw
+  ports:
+    - "52004:80"
