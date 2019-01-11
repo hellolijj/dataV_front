@@ -2,14 +2,29 @@
 
 ## 项目演示
 
-http://demo.lijj.top:52003/
+个人作业：http://demo.lijj.top:52003/
+小组作业：http://demo.lijj.top:52004/
 
 ## 前端架构
 
 - 使用 [layui](https://www.layui.com/) 框架 平台的样式
 - 使用 [echarts](http://echarts.baidu.com/) 展示可视化页面
 
+## 项目部署
 
+### 个人作业部署
+```
+git clone https://github.com/hellolijj/dataV_front.git
+cd dataV_front
+docker-compse up -d
+```
+### 小组作业部署
+
+```
+git clone https://github.com/hellolijj/dataV_front.git dataV_group
+cd dataV_group
+docker-compse up -d
+```
 
 ## 页面展示
 
