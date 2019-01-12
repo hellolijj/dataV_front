@@ -7,7 +7,7 @@
     <title>专利技术分布图</title>
     <link rel="stylesheet" href="./layui-src/dist/css/layui.css">
     <script src="./layui-src/dist/layui.js"></script>
-    
+
 </head>
 
 <body class="layui-layout-body">
@@ -48,21 +48,13 @@
             <!-- 内容主体区域 -->
             <form class="layui-form" action="" style="margin:15px;">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">公司名称</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入公司名称"
-                            class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label">年份选择</label>
                         <div class="layui-input-inline">
                             <select name="quiz">
-                                <option value="">所有年份</option>
-                                <option value="1990">1990</option>
-                                <option value="1991">1991</option>
-                                <option value="1992">1992</option>
+                                <option value="1999">1999</option>
+                                <option value="2000">2000</option>
+                                <option value="2001">2001</option>
                             </select>
                         </div>
                     </div>
@@ -70,14 +62,13 @@
                         <label class="layui-form-label">组别统计</label>
                         <div class="layui-input-inline">
                             <select name="modules" lay-verify="required" lay-search="">
-                                <option value=""></option>
-                                <option value="1">大组统计</option>
-                                <option value="2">小组统计</option>
+                                <option value="big">大组统计</option>
+                                <option value="little">小组统计</option>
                             </select>
                         </div>
                     </div>
                     <div class="layui-inline">
-                        <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                        <button class="layui-btn" lay-submit="" lay-filter="submit">立即提交</button>
                     </div>
                 </div>
             </form>
@@ -107,10 +98,47 @@
     </script>
     <script src="./public/echarts.common.min.js"></script>
     <script>
+        
         var myChart = echarts.init(document.getElementById('map'));
+        var big_data = {
+            "2000-big":[
+                ['C07D239', 'C07D277', 'C07D333', 'A62D3', 'C07C51', 'C07C217', 'G06F9', 'C07D231', 'A61J7', 'G11B7', 'H01B13', 'H01B1', 'B66B23', 'B65F1', 'B65B19', 'B60K25', 'C07D213', 'F23R3', 'C11D17'],
+                ['17', '16', '29', '9', '44', '14', '88', '14', '1', '214', '5', '11', '7', '3', '32', '1', '47', '11', '25'],
+                ['0', '0', '0', '0', '0', '0', '3', '0', '0', '20', '8', '0', '3', '16', '5', '0', '0', '0', '1']
+            ],
+            "2000-little":[
+                ['C07D239/54', 'C07D277/32', 'C07D333/38', 'A62D3/00', 'C07C51/255', 'C07C217/74', 'G06F9/44', 'C07D231/20', 'A61J7/04', 'G11B7/24', 'H01B13/00', 'H01B1/24', 'B66B23/00', 'B65F1/02', 'B65B19/22', 'B60K25/00', 'C07D213/40', 'F23R3/28', 'C11D17/00'],
+                ['4', '4', '3', '9', '3', '1', '16', '2', '1', '29', '4', '1', '3', '1', '4', '1', '1', '2', '14'],
+                ['0', '0', '0', '0', '0', '0', '0', '0', '0', '9', '5', '0', '1', '0', '0', '0', '0', '0', '1']
+            ],
+            "1999-little":[
+                ['H02K3/32', 'F02D45/00', 'H04L12/66', 'H04L12/56', 'H04L12/28', 'H04J13/02', 'H04B10/18', 'H04B10/12', 'H04B10/00', 'H04B7/26', 'F02F1/42', 'F02B29/00', 'F01M1/06', 'A47J27/00', 'H04N3/00', 'H04N1/04', 'H04L29/08', 'F02B67/06', 'H02J7/00'],
+                ['2', '2', '13', '49', '42', '36', '8', '10', '8', '95', '3', '2', '1', '9', '1', '20', '6', '3', '33'],
+                ['0', '1', '0', '1', '0', '0', '0', '0', '1', '1', '2', '0', '0', '23', '1', '12', '0', '0', '10']
+            ],
+            "1999-big":[
+                ['H02K3', 'F02D45', 'H04L12', 'H04J13', 'H04B10', 'H04B7', 'F02F1', 'F02B29', 'F01M1', 'A47J27', 'H04N3', 'H04N1', 'H04L29', 'F02B67', 'H02J7', 'A46B9', 'G01J3', 'F04D25', 'F02K7'],
+                [54, 2, 237, 85, 54, 244, 12, 2, 3, 21, 24, 118, 81, 3, 41, 8, 14, 6, 1],
+                [4, 1, 4, 0, 7, 2, 11, 0, 2, 94, 2, 16, 4, 1, 22, 1, 11, 25, 0]
+            ],
+            "2001-big":[
+                ['H01J29', 'H01H25', 'H01F41', 'G02F1', 'G02B6', 'H04M11', 'H04M3', 'H04N5', 'A61L2', 'A61K51', 'A61K35', 'A61M1', 'G01V1', 'A61K31', 'A61K7', 'H04J13', 'H04J11', 'E01D4', 'C23F1'],
+                ['156', '8', '34', '204', '142', '72', '43', '208', '10', '10', '279', '13', '5', '1361', '229', '143', '28', '1', '19'],
+                ['10', '2', '8', '29', '56', '17', '2', '46', '30', '0', '1', '29', '20', '0', '0', '0', '0', '0', '1'],
+            ],
+            "2001-little":[
+                ['H01J29/06', 'H01H25/06', 'H01F41/28', 'G02F1/13357', 'G02F1/1335', 'G02B6/35', 'H04M11/06', 'H04M3/22', 'H04N5/217', 'A61L2/07', 'A61K51/00', 'G02F1/39', 'A61K35/78', 'A61M1/34', 'G02B6/26', 'G01V1/16', 'A61K31/4164', 'A61K7/13', 'H04J13/00'],
+                ['6', '1', '1', '6', '39', '10', '27', '9', '1', '2', '6', '21', '215', '1', '19', '1', '7', '13', '59'],
+                ['0', '2', '0', '1', '5', '6', '5', '1', '0', '4', '0', '1', '0', '3', '2', '2', '0', '0', '0']
+            ]
+
+        };
+
+
+        console.log(big_data)
+        
+        
         // 指定图表的配置项和数据
-
-
         option = {
             title: [{
                 text: '技术分布图',
@@ -136,7 +164,7 @@
             },
             yAxis: {
                 type: 'category',
-                data: ['F16D55/224', 'F16D65/18', 'B23Q1/28', 'F16D65/18', 'F16D121/04', 'B23Q1/28', 'F16D55/224']
+                data: big_data["1999-big"][0]
             },
             series: [
                 {
@@ -149,7 +177,7 @@
                             position: 'insideRight'
                         }
                     },
-                    data: [320, 302, 301, 334, 390, 330, 320]
+                    data: big_data["1999-big"][1]
                 },
                 {
                     name: '实用新型',
@@ -161,12 +189,28 @@
                             position: 'insideRight'
                         }
                     },
-                    data: [120, 132, 101, 134, 90, 230, 210]
+                    data: big_data["1999-big"][2]
                 }
             ]
         };
 
         // 使用刚指定的配置项和数据显示图表。
+        
+
+        layui.use('form', function () {
+            var form = layui.form;
+            form.on('submit(submit)', function (data) {
+                console.log(data.field)
+                console.log(big_data)
+                    option.yAxis.data = big_data[data.field.quiz+"-"+data.field.modules][0]
+                    option.series[0].data = big_data[data.field.quiz+"-"+data.field.modules][1]
+                    option.series[1].data = big_data[data.field.quiz+"-"+data.field.modules][2]
+                myChart.setOption(option);
+                return false;
+                
+            })
+        });
+
         myChart.setOption(option);
 
     </script>
